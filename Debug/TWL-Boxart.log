@@ -1,5 +1,5 @@
-﻿  fatal: cannot describe 'e119140e67342a84e1aea802d38940eb1a8400b9'
-  fatal: cannot describe 'e119140e67342a84e1aea802d38940eb1a8400b9'
+﻿  fatal: cannot describe '1114814a6e11b22ce90f239975218cdb54f69d9d'
+  fatal: cannot describe '1114814a6e11b22ce90f239975218cdb54f69d9d'
   updaterScreen.cpp
   linking TWiLight_Menu++_Updater.elf
   ../bannertool.exe makebanner -ci "../app/banner.cgfx" -a "../app/BannerAudio.wav" -o "../app/banner.bin"

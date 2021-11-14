@@ -69,7 +69,21 @@ void UpdaterScreen::Draw(void) const {
 
 
 void UpdaterScreen::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
-	
+	if (hHeld & KEY_LEFT) {
+		if (buttonShading && menuSelection % 2) menuSelection--;
+	}
+	else if (hHeld & KEY_RIGHT) {
+		if (buttonShading && !(menuSelection % 2)) menuSelection++;
+	}
+
+	if (hHeld & (KEY_UP | KEY_DOWN | KEY_LEFT | KEY_RIGHT)) {
+		buttonShading = true;
+		if (dspfirmfound) {
+			sfx_select->stop();
+			sfx_select->play();
+		}
+	}
+
 	if (hDown & KEY_TOUCH) {
 		buttonShading = false;
 	}
@@ -162,12 +176,16 @@ void UpdaterScreen::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
 		if(checkWifiStatus()) {
 			std::string commit;
 			switch (menuSelection) {
-				case 0:
+				case 0:	// Updater release
 					if (dspfirmfound) {
 						sfx_select->stop();
 						sfx_select->play();
 					}
-					showReleaseInfo("kyoforkshomebrews/TWiLightMenu-Boxart", false);
+					if (showReleaseInfo("kyoforkshomebrews/TWiLightMenu-Boxart", true)) {
+						updatingSelf = true;
+						updateSelf("");
+						updatingSelf = false;
+					}
 					break;
 				case 1:	// Extras
 					if(dspfirmfound) {
