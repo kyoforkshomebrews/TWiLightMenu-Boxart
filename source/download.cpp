@@ -1575,41 +1575,7 @@ void scanToCancelBoxArt(void) {
 }
 
 void downloadExtras(void) {
-	std::string extrasOptions[] = {"Boxart", "Themes"};
-	int selectedOption = 0;
-	while(1) {
-		//gspWaitForVBlank();
-		hidScanInput();
-		const u32 hDown = hidKeysDown();
-		if(hDown & KEY_A) {
-			if(selectedOption == 0) {
-				downloadBoxart();
-			} else {
-				downloadThemes();
-			}
-		} else if(hDown & KEY_B) {
-			return;
-		} else if(hDown & KEY_UP) {
-			if(selectedOption > 0) {
-				selectedOption--;
-			}
-		} else if(hDown & KEY_DOWN) {
-			if(selectedOption < 1) {
-				selectedOption++;
-			}
-		}
-		std::string extrasText = "What would you like to download?\n";
-		for(int i=0;i<2;i++) {
-			if(i == selectedOption) {
-				extrasText += "> " + extrasOptions[i] + "\n";
-			} else {
-				extrasText += "  " + extrasOptions[i] + "\n";
-			}
-		}
-		extrasText += "\n\n\n\n\n\n\n\n";
-		extrasText += " Back    Choose";
-		Msg::DisplayMsg(extrasText.c_str());
-	}
+	downloadBoxart();
 }
 
 void downloadBoxart(void) {
@@ -1751,92 +1717,92 @@ void downloadBoxart(void) {
 	doneMsg();
 }
 
-void downloadThemes(void) {
-
-	int selectedTwlTheme = 0;
-	std::string themeNames[] = {"DSi theme", "3DS theme", "R4 theme", "Acekard theme"};
-	std::string themeFolders[] = {"dsimenu", "3dsmenu", "r4menu", "akmenu"};
-	chooseTWlTheme:
-	while(1) {
-		//gspWaitForVBlank();
-		hidScanInput();
-		const u32 hDown = hidKeysDown();
-		const u32 hHeld = hidKeysDownRepeat();
-		if(hDown & KEY_A) {
-			break;
-		} else if(hDown & KEY_B) {
-			return;
-		} else if(hHeld & KEY_UP) {
-			if(selectedTwlTheme > 0) {
-				selectedTwlTheme--;
-			}
-		} else if(hHeld & KEY_DOWN) {
-			if(selectedTwlTheme < 3) {
-				selectedTwlTheme++;
-			}
-		}
-		std::string themesText = "Which TWiLight theme would you like\nto download themes for?\n";
-		for(int i=0;i<4;i++) {
-			if(i == selectedTwlTheme) {
-				themesText += "> " + themeNames[i] + "\n";
-			} else {
-				themesText += "  " + themeNames[i] + "\n";
-			}
-		}
-		themesText += "\n\n\n\n\n";
-		themesText += " Back    Choose";
-		Msg::DisplayMsg(themesText.c_str());
-	}
-
-	Msg::DisplayMsg("Getting theme list...");
-
-	std::vector<ThemeEntry> themeList = getThemeList("DS-Homebrew/twlmenu-extras", "_nds/TWiLightMenu/"+themeFolders[selectedTwlTheme]+"/themes");
-	mkdir(("sdmc:/_nds/TWiLightMenu/"+themeFolders[selectedTwlTheme]).c_str(), 0777);
-	mkdir(("sdmc:/_nds/TWiLightMenu/"+themeFolders[selectedTwlTheme]+"/themes/").c_str(), 0777);
-
-	int selectedTheme = 0;
-	while(1) {
-		//gspWaitForVBlank();
-		hidScanInput();
-		const u32 hDown = hidKeysDown();
-		const u32 hHeld = hidKeysDownRepeat();
-		if(hDown & KEY_A) {
-			Msg::DisplayMsg("Downloading: " + themeList[selectedTheme].name.substr(0, themeList[selectedTheme].name.find_last_of('.')));
-			downloadTheme(themeList[selectedTheme].path);
-		} else if(hDown & KEY_B) {
-			selectedTheme = 0;
-			goto chooseTWlTheme;
-		} else if(hHeld & KEY_UP) {
-			if(selectedTheme > 0) {
-				selectedTheme--;
-			}
-		} else if(hHeld & KEY_DOWN) {
-			if(selectedTheme < (int)themeList.size()-1) {
-				selectedTheme++;
-			}
-		} else if(hHeld & KEY_LEFT) {
-			selectedTheme -= 10;
-			if(selectedTheme < 0) {
-				selectedTheme = 0;
-			}
-		} else if(hHeld & KEY_RIGHT) {
-			selectedTheme += 10;
-			if(selectedTheme > (int)themeList.size()) {
-				selectedTheme = themeList.size()-1;
-			}
-		}
-		std::string themesText;
-		for(int i=(selectedTheme<10) ? 0 : selectedTheme-10;i<(int)themeList.size()&&i<((selectedTheme<10) ? 11 : selectedTheme+1);i++) {
-			if(i == selectedTheme) {
-				themesText += "> " + themeList[i].name.substr(0, themeList[i].name.find_last_of('.')) + "\n";
-			} else {
-				themesText += "  " + themeList[i].name.substr(0, themeList[i].name.find_last_of('.')) + "\n";
-			}
-		}
-		for(uint i=0;i<((themeList.size()<10) ? 11-themeList.size() : 0);i++) {
-			themesText += "\n";
-		}
-		themesText += " Back    Choose";
-		Msg::DisplayMsg(themesText.c_str());
-	}
-}
+//void downloadThemes(void) {
+//
+//	int selectedTwlTheme = 0;
+//	std::string themeNames[] = {"DSi theme", "3DS theme", "R4 theme", "Acekard theme"};
+//	std::string themeFolders[] = {"dsimenu", "3dsmenu", "r4menu", "akmenu"};
+//	chooseTWlTheme:
+//	while(1) {
+//		//gspWaitForVBlank();
+//		hidScanInput();
+//		const u32 hDown = hidKeysDown();
+//		const u32 hHeld = hidKeysDownRepeat();
+//		if(hDown & KEY_A) {
+//			break;
+//		} else if(hDown & KEY_B) {
+//			return;
+//		} else if(hHeld & KEY_UP) {
+//			if(selectedTwlTheme > 0) {
+//				selectedTwlTheme--;
+//			}
+//		} else if(hHeld & KEY_DOWN) {
+//			if(selectedTwlTheme < 3) {
+//				selectedTwlTheme++;
+//			}
+//		}
+//		std::string themesText = "Which TWiLight theme would you like\nto download themes for?\n";
+//		for(int i=0;i<4;i++) {
+//			if(i == selectedTwlTheme) {
+//				themesText += "> " + themeNames[i] + "\n";
+//			} else {
+//				themesText += "  " + themeNames[i] + "\n";
+//			}
+//		}
+//		themesText += "\n\n\n\n\n";
+//		themesText += " Back    Choose";
+//		Msg::DisplayMsg(themesText.c_str());
+//	}
+//
+//	Msg::DisplayMsg("Getting theme list...");
+//
+//	std::vector<ThemeEntry> themeList = getThemeList("DS-Homebrew/twlmenu-extras", "_nds/TWiLightMenu/"+themeFolders[selectedTwlTheme]+"/themes");
+//	mkdir(("sdmc:/_nds/TWiLightMenu/"+themeFolders[selectedTwlTheme]).c_str(), 0777);
+//	mkdir(("sdmc:/_nds/TWiLightMenu/"+themeFolders[selectedTwlTheme]+"/themes/").c_str(), 0777);
+//
+//	int selectedTheme = 0;
+//	while(1) {
+//		//gspWaitForVBlank();
+//		hidScanInput();
+//		const u32 hDown = hidKeysDown();
+//		const u32 hHeld = hidKeysDownRepeat();
+//		if(hDown & KEY_A) {
+//			Msg::DisplayMsg("Downloading: " + themeList[selectedTheme].name.substr(0, themeList[selectedTheme].name.find_last_of('.')));
+//			downloadTheme(themeList[selectedTheme].path);
+//		} else if(hDown & KEY_B) {
+//			selectedTheme = 0;
+//			goto chooseTWlTheme;
+//		} else if(hHeld & KEY_UP) {
+//			if(selectedTheme > 0) {
+//				selectedTheme--;
+//			}
+//		} else if(hHeld & KEY_DOWN) {
+//			if(selectedTheme < (int)themeList.size()-1) {
+//				selectedTheme++;
+//			}
+//		} else if(hHeld & KEY_LEFT) {
+//			selectedTheme -= 10;
+//			if(selectedTheme < 0) {
+//				selectedTheme = 0;
+//			}
+//		} else if(hHeld & KEY_RIGHT) {
+//			selectedTheme += 10;
+//			if(selectedTheme > (int)themeList.size()) {
+//				selectedTheme = themeList.size()-1;
+//			}
+//		}
+//		std::string themesText;
+//		for(int i=(selectedTheme<10) ? 0 : selectedTheme-10;i<(int)themeList.size()&&i<((selectedTheme<10) ? 11 : selectedTheme+1);i++) {
+//			if(i == selectedTheme) {
+//				themesText += "> " + themeList[i].name.substr(0, themeList[i].name.find_last_of('.')) + "\n";
+//			} else {
+//				themesText += "  " + themeList[i].name.substr(0, themeList[i].name.find_last_of('.')) + "\n";
+//			}
+//		}
+//		for(uint i=0;i<((themeList.size()<10) ? 11-themeList.size() : 0);i++) {
+//			themesText += "\n";
+//		}
+//		themesText += " Back    Choose";
+//		Msg::DisplayMsg(themesText.c_str());
+//	}
+//}

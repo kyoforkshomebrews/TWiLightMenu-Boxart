@@ -13,33 +13,16 @@ extern sound *sfx_wrong;
 struct {
 	int x;
 	int y;
-} buttons2[] = { { 129, 48}, { 220, 48}, { 129, 88}, { 220, 88}, { 129, 128}, { 220, 128}, { 129, 168}, { 220, 168},
+} buttons2[] = { { 220, 168},
 };
 
 std::array<bool, 8> updateAvailable = {
 	false,
-	false,
-	false,
-	false,
-	false,
-	false,
-	false,
-	false,
 };
 
 UpdaterScreen::UpdaterScreen() {
-	this->checkUpdates(); // Check for updates.
+	/*this->checkUpdates();*/ // Check for updates.
 }
-
-void UpdaterScreen::checkUpdates() {
-	if (checkWifiStatus()) {
-		if (Msg::promptMsg("Would you like to scan for updates?")) {
-			Msg::DisplayMsg("Scanning for updates...");
-			checkForUpdates();
-		}
-	}
-}
-
 
 void UpdaterScreen::Draw(void) const {
 	GFX::DrawTop(true);
@@ -84,22 +67,6 @@ void UpdaterScreen::Draw(void) const {
 
 
 void UpdaterScreen::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
-	if (hHeld & KEY_UP) {
-		if (buttonShading) menuSelection -= 2;
-	} else if (hHeld & KEY_DOWN) {
-		if (buttonShading) menuSelection += 2;
-	} else if (hHeld & KEY_LEFT) {
-		if (buttonShading && menuSelection%2) menuSelection--;
-	} else if (hHeld & KEY_RIGHT) {
-		if (buttonShading && !(menuSelection%2)) menuSelection++;
-	}
-	if (hHeld & (KEY_UP | KEY_DOWN | KEY_LEFT | KEY_RIGHT)) {
-		buttonShading = true;
-		if(dspfirmfound) {
-			sfx_select->stop();
-			sfx_select->play();
-		}
-	}
 
 	if (hDown & KEY_TOUCH) {
 		buttonShading = false;
@@ -133,7 +100,7 @@ void UpdaterScreen::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
 		}
 	}
 
-	if (hDown & KEY_Y || showMessage) {
+	/*if (hDown & KEY_Y || showMessage) {
 		switch (menuSelection)
 		{
 			case 0:
@@ -186,81 +153,13 @@ void UpdaterScreen::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
 				break;
 		}
 		showMessage = false;
-	}
+	}*/
 
 	if (setOption) {
 		if(checkWifiStatus()) {
 			std::string commit;
 			switch (menuSelection) {
-				case 0:	// TWiLight release
-					if(dspfirmfound) {
-						sfx_select->stop();
-						sfx_select->play();
-					}
-					if(showReleaseInfo("DS-Homebrew/TWiLightMenu", true))
-						updateTWiLight("");
-					break;
-				case 1:	// TWiLight nightly
-					if(dspfirmfound) {
-						sfx_select->stop();
-						sfx_select->play();
-					}
-					if (Msg::promptMsg("Do you like to skip:\n- Themes\n- AP Patches\n- Widescreen files\n\nThis would make the progress faster.")) {
-						if ((commit = chooseCommit("TWLBot/Builds", "TWiLightMenu |", true)) != "") {
-							updateTWiLightLite(commit);
-						}
-					} else {
-						if ((commit = chooseCommit("TWLBot/Builds", "TWiLightMenu |", true)) != "") {
-							updateTWiLight(commit);
-						}
-					}
-					break;
-				case 2:	// nds-bootstrap release
-					if(dspfirmfound) {
-						sfx_select->stop();
-						sfx_select->play();
-					}
-					if(showReleaseInfo("ahezard/nds-bootstrap", true))
-						updateBootstrap("");
-					break;
-				case 3:	// nds-bootstrap nightly
-					if(dspfirmfound) {
-						sfx_select->stop();
-						sfx_select->play();
-					}
-					if((commit = chooseCommit("TWLBot/Builds", "nds-bootstrap |", true)) != "")
-						updateBootstrap(commit);
-					break;
-				case 4:	// Updater release
-					if(dspfirmfound) {
-						sfx_select->stop();
-						sfx_select->play();
-					}
-					if(showReleaseInfo("RocketRobz/TWiLightMenu-Updater", true)) {
-						updatingSelf = true;
-						updateSelf("");
-						updatingSelf = false;
-					}
-					break;
-				case 5:	// Updater nightly
-					if(dspfirmfound) {
-						sfx_select->stop();
-						sfx_select->play();
-					}
-					if((commit = chooseCommit("TWLBot/Builds", "TWiLightMenu-Updater |", true)) != "") {
-						updatingSelf = true;
-						updateSelf(commit);
-						updatingSelf = false;
-					}
-					break;
-				case 6:	// Cheats
-					if(dspfirmfound) {
-						sfx_select->stop();
-						sfx_select->play();
-					}
-					updateCheats();
-					break;
-				case 7:	// Extras
+				case 0:	// Extras
 					if(dspfirmfound) {
 						sfx_select->stop();
 						sfx_select->play();

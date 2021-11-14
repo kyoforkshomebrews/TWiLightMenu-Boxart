@@ -19,3 +19,6 @@ build/*
 app/banner.bin
 app/icon.bin
 *.exe
+
+# VS files
+.vs/*
