@@ -13,7 +13,7 @@ extern sound *sfx_wrong;
 struct {
 	int x;
 	int y;
-} buttons2[] = { { 220, 168},
+} buttons2[] = { { 129, 168}, { 220, 168},
 };
 
 std::array<bool, 8> updateAvailable = {
@@ -21,6 +21,8 @@ std::array<bool, 8> updateAvailable = {
 };
 
 UpdaterScreen::UpdaterScreen() {
+	menuSelection = 1;
+	setOption = true;
 	/*this->checkUpdates();*/ // Check for updates.
 }
 
@@ -67,7 +69,7 @@ void UpdaterScreen::Draw(void) const {
 
 
 void UpdaterScreen::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
-
+	
 	if (hDown & KEY_TOUCH) {
 		buttonShading = false;
 	}
@@ -100,6 +102,7 @@ void UpdaterScreen::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
 		}
 	}
 
+	//leave this in just in case: 
 	/*if (hDown & KEY_Y || showMessage) {
 		switch (menuSelection)
 		{
@@ -159,12 +162,19 @@ void UpdaterScreen::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
 		if(checkWifiStatus()) {
 			std::string commit;
 			switch (menuSelection) {
-				case 0:	// Extras
+				case 0:
+					if (dspfirmfound) {
+						sfx_select->stop();
+						sfx_select->play();
+					}
+					showReleaseInfo("kyoforkshomebrews/TWiLightMenu-Boxart", false);
+					break;
+				case 1:	// Extras
 					if(dspfirmfound) {
 						sfx_select->stop();
 						sfx_select->play();
 					}
-					downloadExtras();
+					downloadBoxart();
 					break;
 			default:
 					if(dspfirmfound) {

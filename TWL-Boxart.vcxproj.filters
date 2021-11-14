@@ -39,9 +39,6 @@
     <ClCompile Include="source\screens\exiting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\screens\updaterScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\utils\thread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -89,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="source\utils\stringutils.cpp">
       <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="source\screens\updaterScreen.cpp">
+      <Filter>Source Files\screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

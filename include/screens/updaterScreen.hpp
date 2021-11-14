@@ -21,11 +21,13 @@ private:
 	int menuSelection = 0;
 
 	const std::array<const char *, 8> button_titles2 = {
-		"Extras",
+		"Update",
+		"Boxarts",
 	};
 
 	const std::array<const int, 8> title_spacing = {
-		17,
+		10,
+		10,
 	};
 
 	const std::array<const char *, 4> row_titles2 = {
