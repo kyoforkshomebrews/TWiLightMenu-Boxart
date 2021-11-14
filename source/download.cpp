@@ -1381,7 +1381,7 @@ void updateTWiLightLite(std::string commit) {
 }
 
 void updateSelf(std::string commit) {
-	if(commit != "" && (access("sdmc:/3ds/TWiLightMenu-Updater.3dsx", F_OK) != 0)) {
+	if(commit != "" && (access("sdmc:/3ds/TWiLight_Menu++_Updater.3dsx", F_OK) != 0)) {
 		snprintf(progressBarMsg, sizeof(progressBarMsg), "Downloading the Updater CIA...\n(Nightly)");
 		showProgressBar = true;
 		progressBarType = 0;
@@ -1403,12 +1403,12 @@ void updateSelf(std::string commit) {
 		installCia("/TWiLightMenu-Updater-nightly.cia", true);
 		showProgressBar = false;
 		deleteFile("sdmc:/TWiLightMenu-Updater-nightly.cia");
-	} else if(commit == "" && (access("sdmc:/3ds/TWiLightMenu-Updater.3dsx", F_OK) != 0)) {
+	} else if(commit == "" && (access("sdmc:/3ds/TWiLight_Menu++_Updater.3dsx", F_OK) != 0)) {
 		snprintf(progressBarMsg, sizeof(progressBarMsg), "Downloading the Updater CIA...\n(Release)");
 		showProgressBar = true;
 		progressBarType = 0;
 		createThread((ThreadFunc)displayProgressBar);
-		if(downloadFromRelease("https://github.com/RocketRobz/TWiLightMenu-Updater", "TWiLightMenu-Updater\\.cia", "/TWiLightMenu-Updater-release.cia") != 0) {
+		if(downloadFromRelease("https://github.com/kyoforkshomebrews/TWiLightMenu-Boxart", "TWiLightMenu-Updater\\.cia", "/TWiLightMenu-Updater-release.cia") != 0) {
 			downloadFailed();
 			showProgressBar = false;
 			return;
@@ -1426,12 +1426,12 @@ void updateSelf(std::string commit) {
 		showProgressBar = false;
 
 		deleteFile("sdmc:/TWiLightMenu-Updater-release.cia");
-	} else if(commit != "" && (access("sdmc:/3ds/TWiLightMenu-Updater.3dsx", F_OK) == 0)) {
+	} else if(commit != "" && (access("sdmc:/3ds/TWiLight_Menu++_Updater.3dsx", F_OK) == 0)) {
 		snprintf(progressBarMsg, sizeof(progressBarMsg), "Downloading the Updater 3dsx...\n(Nightly)");
 		showProgressBar = true;
 		progressBarType = 0;
 		createThread((ThreadFunc)displayProgressBar);
-		if(downloadToFile("https://github.com/TWLBot/Builds/blob/"+commit+"/TWiLightMenu%20Updater/TWiLight_Menu++_Updater.3dsx?raw=true", "/3ds/TWiLightMenu-Updater.3dsx") != 0) {
+		if(downloadToFile("https://github.com/TWLBot/Builds/blob/"+commit+"/TWiLightMenu%20Updater/TWiLight_Menu++_Updater.3dsx?raw=true", "/3ds/TWiLight_Menu++_Updater.3dsx") != 0) {
 			downloadFailed();
 			return;
 		}
@@ -1446,7 +1446,7 @@ void updateSelf(std::string commit) {
 		showProgressBar = true;
 		progressBarType = 0;
 		createThread((ThreadFunc)displayProgressBar);
-		if(downloadFromRelease("https://github.com/RocketRobz/TWiLightMenu-Updater", "TWiLightMenu-Updater\\.3dsx", "/3ds/TWiLightMenu-Updater.3dsx") != 0) {
+		if(downloadFromRelease("https://github.com/kyoforkshomebrews/TWiLightMenu-Boxart", "TWiLight_Menu++_Updater.3dsx", "/3ds/TWiLight_Menu++_Updater.3dsx") != 0) {
 			downloadFailed();
 			return;
 		}
@@ -1458,7 +1458,7 @@ void updateSelf(std::string commit) {
 		updateAvailable[4] = false;
 	}
 	doneMsg();
-	if(access("sdmc:/3ds/TWiLightMenu-Updater.3dsx", F_OK) == 0) {
+	if(access("sdmc:/3ds/TWiLight_Menu++_Updater.3dsx", F_OK) == 0) {
 		updated3dsx = true;
 	}
 }

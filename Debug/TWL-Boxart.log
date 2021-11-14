@@ -1,6 +1,30 @@
-﻿  fatal: cannot describe '1114814a6e11b22ce90f239975218cdb54f69d9d'
-  fatal: cannot describe '1114814a6e11b22ce90f239975218cdb54f69d9d'
-  updaterScreen.cpp
+﻿  fatal: cannot describe '6c2a6ede80533ddf889947cc0438e424082fc2bb'
+  fatal: cannot describe '6c2a6ede80533ddf889947cc0438e424082fc2bb'
+  download.cpp
+  C:/Users/marcm/Eigene_Programme/Homebrew/3DS/forks/TWiLightMenu-Boxart/source/download.cpp: In function 'size_t file_handle_data(char*, size_t, size_t, void*)':
+C:/Users/marcm/Eigene_Programme/Homebrew/3DS/forks/TWiLightMenu-Boxart/source/download.cpp(125,65): warning G55E5081F: invalid conversion from 'char*' to 'u32' {aka 'long unsigned int'} [-fpermissive]
+    125 |   svcFlushProcessDataCache(CUR_PROCESS_HANDLE, g_buffers[g_index], file_toCommit_size);
+        |                                                ~~~~~~~~~~~~~~~~~^
+        |                                                                 |
+        |                                                                 char*
+  In file included from C:/devkitPro/libctru/include/3ds.h:15,
+                   from C:/Users/marcm/Eigene_Programme/Homebrew/3DS/forks/TWiLightMenu-Boxart/include/animation.hpp:30,
+                   from C:/Users/marcm/Eigene_Programme/Homebrew/3DS/forks/TWiLightMenu-Boxart/source/download.cpp:1:
+  C:/devkitPro/libctru/include/3ds/svc.h:1231:53: note:   initializing argument 2 of 'Result svcFlushProcessDataCache(Handle, u32, u32)'
+   1231 | Result svcFlushProcessDataCache(Handle process, u32 addr, u32 size);
+        |                                                 ~~~~^~~~
+  C:/Users/marcm/Eigene_Programme/Homebrew/3DS/forks/TWiLightMenu-Boxart/source/download.cpp: In function 'Result downloadToFile(std::string, std::string)':
+C:/Users/marcm/Eigene_Programme/Homebrew/3DS/forks/TWiLightMenu-Boxart/source/download.cpp(193,64): warning G55E5081F: invalid conversion from 'char*' to 'u32' {aka 'long unsigned int'} [-fpermissive]
+    193 |  svcFlushProcessDataCache(CUR_PROCESS_HANDLE, g_buffers[g_index], file_toCommit_size);
+        |                                               ~~~~~~~~~~~~~~~~~^
+        |                                                                |
+        |                                                                char*
+  In file included from C:/devkitPro/libctru/include/3ds.h:15,
+                   from C:/Users/marcm/Eigene_Programme/Homebrew/3DS/forks/TWiLightMenu-Boxart/include/animation.hpp:30,
+                   from C:/Users/marcm/Eigene_Programme/Homebrew/3DS/forks/TWiLightMenu-Boxart/source/download.cpp:1:
+  C:/devkitPro/libctru/include/3ds/svc.h:1231:53: note:   initializing argument 2 of 'Result svcFlushProcessDataCache(Handle, u32, u32)'
+   1231 | Result svcFlushProcessDataCache(Handle process, u32 addr, u32 size);
+        |                                                 ~~~~^~~~
   linking TWiLight_Menu++_Updater.elf
   ../bannertool.exe makebanner -ci "../app/banner.cgfx" -a "../app/BannerAudio.wav" -o "../app/banner.bin"
   Created banner "../app/banner.bin".
